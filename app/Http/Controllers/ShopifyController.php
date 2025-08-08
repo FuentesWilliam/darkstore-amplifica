@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Services\ShopifyService;
 
 class ShopifyController extends Controller
@@ -17,6 +18,14 @@ class ShopifyController extends Controller
         // Sincronizar y obtener productos
         $this->shopify->syncAllProducts();
        
-        return view('dashboard', compact('products'));
+        return view('shopify.products');
+    }
+
+    public function orders_view()
+    {
+        // Sincronizar y obtener productos
+        $this->shopify->syncAllOrders();
+       
+        return view('shopify.orders');
     }
 }
