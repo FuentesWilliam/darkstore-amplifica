@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('title');
             $table->string('sku')->nullable();
             $table->decimal('price', 10, 2);
-            $table->string('image_url')->nullable();
             $table->json('variants')->nullable(); // Almacenamos los variants como JSON
             $table->json('images')->nullable(); // Almacenamos imágenes como JSON
             $table->timestamps();

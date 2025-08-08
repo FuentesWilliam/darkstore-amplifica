@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Product;
+use Illuminate\Support\Facades\Response;
 
 class ProductTable extends Component
 {
@@ -48,5 +49,41 @@ class ProductTable extends Component
         }
 
         return '<i class="fa fa-sort ml-2 text-gray-400 float-right" aria-hidden="true"></i>';
+    }
+
+    public function export()
+    {
+        $fileName = 'products.csv';
+
+        $products = Product::all();
+
+        $headers = [
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $callback = function () use ($products) {
+            $handle = fopen('php://output', 'w');
+
+            // Encabezado del CSV
+            fputcsv($handle, ['ID', 'Title', 'SKU', 'Price', 'Image URL'], ';');
+
+            foreach ($products as $product) {
+                fputcsv($handle, [
+                    $product->id,
+                    $product->title,
+                    $product->sku,
+                    $product->price,
+                    $product->image_url
+                ], ';');
+            }
+
+            fclose($handle);
+        };
+
+        return Response::stream($callback, 200, $headers);
     }
 }

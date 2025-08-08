@@ -4,7 +4,7 @@
          <x-input wire:model.live="search" type="text" class="w-full sm:w-1/2" placeholder="Buscar productos..." />
 
          <div class="w-full sm:w-auto">
-            <x-button class="w-full sm:w-auto" >Exportar</x-button>
+            <x-button class="w-full sm:w-auto" wire:click="export">Exportar</x-button>
         </div>
      </div>
 
@@ -30,7 +30,7 @@
                          <td class="px-4 py-2">{{ $product['title'] }}</td>
                          <td class="px-4 py-2">{{ $product['variants'][0]['sku'] ?? 'N/A' }}</td>
                          <td class="px-4 py-2">{{ $product['variants'][0]['price'] }}</td>
-                         <td class="px-4 py-2"><img src="{{ $product['image']['src'] ?? '' }}" width="50"></td>
+                         <td class="px-4 py-2"><img src="{{ $product['images']['src'] ?? '' }}" width="50"></td>
                      </tr>
                  @empty
                     <tr>
