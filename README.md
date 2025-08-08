@@ -48,6 +48,35 @@ ejecuta migraciones:
 php artisan migrate
 ```
 
+Compila los recursos de frontend:
+
+```bash
+npm run dev
+```
+
+Configura el Virtual Host de Apache:
+
+Asegúrate de tener configurado un virtual host apuntando a la carpeta public/ del proyecto. Un ejemplo de configuración sería:
+
+```bash
+<VirtualHost *:80>
+    ServerName darkstore.local
+    DocumentRoot /ruta/a/darkstore-amplifica/public
+
+    <Directory /ruta/a/darkstore-amplifica/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+
+Luego, edita tu archivo hosts (Linux/Mac: /etc/hosts, Windows: C:\Windows\System32\drivers\etc\hosts) para incluir:
+
+```bash
+127.0.0.1   darkstore.local
+```
+
 ## 📝 Justificación Técnica
 
 Para esta prueba técnica se evaluó inicialmente el uso de librerías especializadas para exportación de datos en formato Excel como:
